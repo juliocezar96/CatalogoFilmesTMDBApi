@@ -3,15 +3,16 @@ import MovieCard from "../components/MovieCard";
 import useFetch from "../hook/useFetch";
 
 import "./MoviesGrid.css";
+import { MovieResults } from "../types/type";
 
 const searchUrl = import.meta.env.VITE_SEARCH;
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const Search = () => {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("q");
-  const searchQUeryUrl = `${searchUrl}?${apiKey}&query=${query}`;
-  const { data: movies, loading } = useFetch(searchQUeryUrl);
+  const query:string | null = searchParams.get("q");
+  const searchQUeryUrl: string = `${searchUrl}?${apiKey}&query=${query}`;
+  const { data: movies, loading } = useFetch<MovieResults>(searchQUeryUrl);
 
   return (
     <div className="container">

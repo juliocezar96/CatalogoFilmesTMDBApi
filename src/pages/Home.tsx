@@ -1,14 +1,16 @@
 import MovieCard from "../components/MovieCard";
 import useFetch from "../hook/useFetch";
+import { MovieResults } from "../types/type";
 
 import "./MoviesGrid.css";
 
 const moviesUrl = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 
+
 const Home = () => {
   const topRatedUrl = `${moviesUrl}top_rated?${apiKey}`;
-  const { data: topMovies, loading } = useFetch(topRatedUrl);
+  const { data: topMovies, loading } = useFetch<MovieResults>(topRatedUrl);
 
   return (
     <div className="container">
