@@ -7,7 +7,6 @@ import { useState } from 'react';
 const Navbar = () => {
 
   const [search, setSearch] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,16 +17,12 @@ const Navbar = () => {
     }
 
     navigate(`/search?q=${search}`);
-    setSearch("");
-
-
 
   }
 
-
   return (
     <nav id="navbar">
-        <h2> <Link to="/"><BiCameraMovie/>MoviesLib</Link> </h2>
+        <h2><Link to="/"><BiCameraMovie/>MoviesLib</Link></h2>
         <form onSubmit={handleSubmit}>
             <input 
               type="text" 
