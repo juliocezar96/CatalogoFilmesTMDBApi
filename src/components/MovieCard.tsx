@@ -1,12 +1,17 @@
-/* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
 
 import { FaStar } from "react-icons/fa";
+import { IMovie } from "../types/type";
 
 const imageUrl = import.meta.env.VITE_IMG;
 
-const MovieCard = ({ movie, showLink = true }) => {
+interface MovieCardProps {
+  movie : IMovie;
+  showLink?: boolean;
+}
+
+const MovieCard = ({ movie, showLink = true } : MovieCardProps) => {
   return (
     <div className="movie-card">
       <img src={imageUrl + movie?.poster_path} alt={movie?.title} />
