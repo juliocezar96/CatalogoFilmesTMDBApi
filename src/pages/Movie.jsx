@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+
 import { useParams } from "react-router-dom"
 import { 
   BsGraphUp,
@@ -7,6 +7,7 @@ import {
   BsFillFileEarmarkTextFill
 } from "react-icons/bs"
 import MovieCard from "../components/MovieCard"
+import useFetch from "../hook/useFetch"
 
 import "./Movie.css";
 
@@ -17,13 +18,8 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const Movie = () => {
 
   const {id} = useParams();
-  const [movie, setMovie] = useState(null);
-
-  const getMovie = async(url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setMovie(data);
-  }
+  const movieUrl = `${moviesUrl}${id}?${apiKey}`
+  const {data: movie, loading} = useFetch(movieUrl);
 
   const formatCurrency = (number) => {
     return number.toLocaleString("en-US",{
@@ -33,15 +29,12 @@ const Movie = () => {
 
   }
 
-  useEffect(()=>{
-
-    const movieUrl = `${moviesUrl}${id}?${apiKey}`
-    getMovie(movieUrl)
-  }, [id])
-
   return (
     <div className="movie-page">
-      {movie && <>
+      {loading && !movie ?  
+        <p>Carregando...</p>
+      :
+      movie && <>
         <MovieCard movie={movie} showLink={false} />
         <p className="tagline">{movie.tagline}</p>
         <div className="info">
@@ -68,7 +61,8 @@ const Movie = () => {
           </h3>
           <p>{movie.overview}</p>
         </div>
-      </>}
+      </>
+      }
 
     </div>
   )
